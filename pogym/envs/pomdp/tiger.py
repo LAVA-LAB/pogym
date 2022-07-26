@@ -3,6 +3,7 @@ import copy
 from gym import error, spaces, utils
 from gym.utils import seeding
 from gym.envs.registration import register
+from gym.error import InvalidAction
 import gym
 
 
@@ -48,6 +49,8 @@ class TigerEnv(gym.Env):
             observation= self.sample_from(observation_probability[next_state, :])
             reward=rewards[self.current_state]
             self.renewal=self.current_state==next_state
+        else:
+            raise InvalidAction(f"the action {action} is not valid.")
 
         self.current_state=next_state
         return observation,reward,False,{}
