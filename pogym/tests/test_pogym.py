@@ -18,5 +18,9 @@ class TestTiger(unittest.TestCase):
     def test_open_door_reward(self):
         tiger_env = pogym.make("Tiger-v0")
         tiger_env.reset()
+        state = tiger_env.current_state
         _, r, _, _ = tiger_env.step(1)
-        self.assertIn(r, [10, -100])
+        if state == 0:
+            self.assertEqual(r, -100)
+        else:
+            self.assertEqual(r, 10)
