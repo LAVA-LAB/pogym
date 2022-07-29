@@ -32,7 +32,7 @@ class TestTiger(unittest.TestCase):
             observations = [env.reset(seed=0)]
             done = False
             while not done:
-                o, _, _, done = env.step(0)
+                o, _, done, _ = env.step(0)
                 observations.append(o)
             return observations
 
