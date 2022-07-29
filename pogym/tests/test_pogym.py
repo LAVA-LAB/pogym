@@ -24,3 +24,16 @@ class TestTiger(unittest.TestCase):
             self.assertEqual(r, -100)
         else:
             self.assertEqual(r, 10)
+
+    def test_seeding(self):
+        env = pogym.make("Tiger-v0")
+
+        def get_trajectory():
+            observations = [env.reset(seed=0)]
+            done = False
+            while not done:
+                o, _, _, done = env.step(0)
+                observations.append(o)
+            return observations
+
+        self.assertListEqual(get_trajectory(), get_trajectory())

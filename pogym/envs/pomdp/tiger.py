@@ -17,11 +17,6 @@ class TigerEnv(gym.Env):
         self.renewal=False
         self.action_space=spaces.Discrete(3)
         self.observation_space=spaces.Discrete(2)
-        self.seed()
-    
-    def seed(self, seed=None):
-        self.np_random, seed = seeding.np_random(seed)
-        return [seed]
 
     def step(self,action):
         if action==0: ##corresponds to listen action
@@ -58,7 +53,8 @@ class TigerEnv(gym.Env):
     def sample_from(self, probability_dist):
         return self.np_random.multinomial(1, probability_dist).argmax()
 
-    def reset(self):
+    def reset(self, seed=None):
+        super().reset(seed=seed)
         self.start_state= self.sample_from(self.start_state_prob)
         self.current_state=copy.deepcopy(self.start_state)
 
