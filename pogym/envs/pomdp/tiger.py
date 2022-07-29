@@ -19,6 +19,7 @@ class TigerEnv(gym.Env):
         self.observation_space=spaces.Discrete(2)
 
     def step(self,action):
+        done = False
         if action==0: ##corresponds to listen action
             reward=-1
             transition_probability=np.array([[1,0],[0,1]])
@@ -35,6 +36,7 @@ class TigerEnv(gym.Env):
             observation= self.sample_from(observation_probability[next_state, :])
             reward=rewards[self.current_state]
             self.renewal=self.current_state==next_state
+            done = True
 
         elif action==2: ##open right
             rewards=[10,-100]
@@ -44,11 +46,12 @@ class TigerEnv(gym.Env):
             observation= self.sample_from(observation_probability[next_state, :])
             reward=rewards[self.current_state]
             self.renewal=self.current_state==next_state
+            done = True
         else:
             raise InvalidAction(f"the action {action} is not valid.")
 
         self.current_state=next_state
-        return observation,reward,False,{}
+        return observation, reward, done, {}
 
     def sample_from(self, probability_dist):
         return self.np_random.multinomial(1, probability_dist).argmax()

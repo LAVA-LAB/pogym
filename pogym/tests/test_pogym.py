@@ -37,3 +37,21 @@ class TestTiger(unittest.TestCase):
             return observations
 
         self.assertListEqual(get_trajectory(), get_trajectory())
+
+    def test_listen_is_not_done(self):
+        env = pogym.make("Tiger-v0")
+        env.reset()
+        _, _, done, _ = env.step(0)
+        self.assertFalse(done)
+
+    def test_open_left_door_is_done(self):
+        env = pogym.make("Tiger-v0")
+        env.reset()
+        _, _, done, _ = env.step(1)
+        self.assertTrue(done)
+
+    def test_open_right_door_is_done(self):
+        env = pogym.make("Tiger-v0")
+        env.reset()
+        _, _, done, _ = env.step(2)
+        self.assertTrue(done)
