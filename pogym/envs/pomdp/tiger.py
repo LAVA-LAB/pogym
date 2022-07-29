@@ -14,7 +14,6 @@ class TigerEnv(gym.Env):
         self.current_state=copy.deepcopy(self.start_state)
         self.name="Tiger"
         self.discount=0.95
-        self.renewal=False
         self.action_space=spaces.Discrete(3)
         self.observation_space=spaces.Discrete(2)
 
@@ -26,7 +25,6 @@ class TigerEnv(gym.Env):
             observation_probability=np.array([[0.85,0.15],[0.15,0.85]])
             next_state= self.sample_from(transition_probability[self.current_state, :])
             observation= self.sample_from(observation_probability[next_state, :])
-            self.renewal=self.current_state==next_state
            
         elif action==1: ##open left
             rewards=[-100,10]
@@ -35,7 +33,6 @@ class TigerEnv(gym.Env):
             next_state= self.sample_from(transition_probability[self.current_state, :])
             observation= self.sample_from(observation_probability[next_state, :])
             reward=rewards[self.current_state]
-            self.renewal=self.current_state==next_state
             done = True
 
         elif action==2: ##open right
@@ -45,7 +42,6 @@ class TigerEnv(gym.Env):
             next_state= self.sample_from(transition_probability[self.current_state, :])
             observation= self.sample_from(observation_probability[next_state, :])
             reward=rewards[self.current_state]
-            self.renewal=self.current_state==next_state
             done = True
         else:
             raise InvalidAction(f"the action {action} is not valid.")
