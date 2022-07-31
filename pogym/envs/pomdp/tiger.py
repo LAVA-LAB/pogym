@@ -7,6 +7,9 @@ from gym.error import InvalidAction
 import gym
 
 
+OBSERV_PROB = np.array([[0.85, 0.15], [0.15, 0.85]])
+
+
 class TigerEnv(gym.Env):
     def __init__(self):
         self.start_state_prob=np.array([0.5,0.5])
@@ -22,9 +25,8 @@ class TigerEnv(gym.Env):
         if action==0: ##corresponds to listen action
             reward=-1
             transition_probability=np.array([[1,0],[0,1]])
-            observation_probability=np.array([[0.85,0.15],[0.15,0.85]])
             next_state= self.sample_from(transition_probability[self.current_state, :])
-            observation= self.sample_from(observation_probability[next_state, :])
+            observation= self.sample_from(OBSERV_PROB[next_state, :])
            
         elif action==1: ##open left
             rewards=[-100,10]
@@ -57,6 +59,5 @@ class TigerEnv(gym.Env):
         self.start_state= self.sample_from(self.start_state_prob)
         self.current_state=copy.deepcopy(self.start_state)
 
-        observation_probability=np.array([0.5,0.5])
-        observation= self.sample_from(observation_probability)
+        observation= self.sample_from(OBSERV_PROB[self.current_state, :])
         return observation
