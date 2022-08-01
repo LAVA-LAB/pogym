@@ -4,6 +4,7 @@ from gym import error, spaces, utils
 from gym.utils import seeding
 from gym.envs.registration import register
 from gym.error import InvalidAction
+from typing import Optional
 import gym
 
 
@@ -49,15 +50,24 @@ class TigerEnv(gym.Env):
             raise InvalidAction(f"the action {action} is not valid.")
 
         self.current_state=next_state
-        return observation, reward, done, {}
+        return observation, reward, done, False, {}
 
     def sample_from(self, probability_dist):
         return self.np_random.multinomial(1, probability_dist).argmax()
 
-    def reset(self, seed=None):
+    def reset(
+        self,
+        *,
+        seed: Optional[int] = None,
+        return_info: bool = False,
+        options: Optional[dict] = None
+    ):
         super().reset(seed=seed)
         self.start_state= self.sample_from(self.start_state_prob)
         self.current_state=copy.deepcopy(self.start_state)
 
         observation= self.sample_from(OBSERV_PROB[self.current_state, :])
-        return observation
+        if not return_info:
+            return observation
+        else:
+            return observation, {}
