@@ -17,7 +17,8 @@ class TestTiger(unittest.TestCase):
         tiger_env = pogym.make("Tiger-v0", new_step_api=True)
         tiger_env.reset()
         state = tiger_env.current_state
-        _, r, _, _, _ = tiger_env.step(1)
+        o, r, _, _, _ = tiger_env.step(1)
+        self.assertEqual(o, state)
         if state == 0:
             self.assertEqual(r, -100)
         else:

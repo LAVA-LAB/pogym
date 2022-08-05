@@ -28,11 +28,11 @@ class TigerEnv(gym.Env):
             transition_probability=np.array([[1,0],[0,1]])
             next_state= self.sample_from(transition_probability[self.current_state, :])
             observation= self.sample_from(OBSERV_PROB[next_state, :])
-           
+
         elif action==1: ##open left
             rewards=[-100,10]
-            transition_probability=np.array([[0.5,0.5],[0.5,0.5]])
-            observation_probability=np.array([[0.5,0.5],[0.5,0.5]])
+            transition_probability=np.array([[1,0],[0,1]])
+            observation_probability=np.array([[1,0],[0,1]])
             next_state= self.sample_from(transition_probability[self.current_state, :])
             observation= self.sample_from(observation_probability[next_state, :])
             reward=rewards[self.current_state]
@@ -40,8 +40,8 @@ class TigerEnv(gym.Env):
 
         elif action==2: ##open right
             rewards=[10,-100]
-            transition_probability=np.array([[0.5,0.5],[0.5,0.5]])
-            observation_probability=np.array([[0.5,0.5],[0.5,0.5]])
+            transition_probability=np.array([[1,0],[0,1]])
+            observation_probability=np.array([[1,0],[0,1]])
             next_state= self.sample_from(transition_probability[self.current_state, :])
             observation= self.sample_from(observation_probability[next_state, :])
             reward=rewards[self.current_state]
