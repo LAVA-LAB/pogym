@@ -12,8 +12,8 @@ OBSERV_PROB = np.array([[0.85, 0.15], [0.15, 0.85]])
 
 
 class TigerEnv(gym.Env):
-    def __init__(self):
-        self.start_state_prob=np.array([0.5,0.5])
+    def __init__(self, isd=[0.5,0.5]):
+        self.start_state_prob=np.array(isd)
         self.start_state=None
         self.current_state=copy.deepcopy(self.start_state)
         self.name="Tiger"
