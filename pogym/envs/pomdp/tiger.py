@@ -23,13 +23,13 @@ class TigerEnv(gym.Env):
 
     def step(self,action):
         done = False
-        if action==0: ##corresponds to listen action
+        if action==2: ##corresponds to listen action
             reward=-1
             transition_probability=np.array([[1,0],[0,1]])
             next_state= self.sample_from(transition_probability[self.current_state, :])
             observation= self.sample_from(OBSERV_PROB[next_state, :])
 
-        elif action==1: ##open left
+        elif action==0: ##open left
             rewards=[-100,10]
             transition_probability=np.array([[1,0],[0,1]])
             observation_probability=np.array([[1,0],[0,1]])
@@ -38,7 +38,7 @@ class TigerEnv(gym.Env):
             reward=rewards[self.current_state]
             done = True
 
-        elif action==2: ##open right
+        elif action==1: ##open right
             rewards=[10,-100]
             transition_probability=np.array([[1,0],[0,1]])
             observation_probability=np.array([[1,0],[0,1]])
