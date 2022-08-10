@@ -1,4 +1,3 @@
-from abc import ABC
 from typing import Optional
 
 import gym
@@ -12,7 +11,7 @@ from pogym.utils import sample_from
 OBS_PROB = np.array([[0.8, 0.2], [0.3, 0.7]])
 
 
-class VoicemailEnv(gym.Env, ABC):
+class VoicemailEnv(gym.Env):
     def __init__(self, isd=(0.65, 0.35)):
         self.start_state_probs = np.array(isd)  # assuming user wants the message to be saved
         self.start_state = None
