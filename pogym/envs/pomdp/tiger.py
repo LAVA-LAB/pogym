@@ -22,7 +22,7 @@ class TigerEnv(gym.Env):
         done = False
         if action == 2:  ##corresponds to listen action
             reward = -1
-            observation = self.sample_from(OBSERV_PROB[next_state, :])
+            observation = self.sample_from(OBSERV_PROB[self.current_state, :])
 
         elif action == 0:  ##open left
             rewards = [-100, 10]
