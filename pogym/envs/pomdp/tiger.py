@@ -14,8 +14,7 @@ OBSERV_PROB = np.array([[0.85, 0.15], [0.15, 0.85]])
 class TigerEnv(gym.Env):
     def __init__(self, isd=[0.5,0.5]):
         self.start_state_prob=np.array(isd)
-        self.start_state=None
-        self.current_state=copy.deepcopy(self.start_state)
+        self.current_state = None
         self.name="Tiger"
         self.discount=0.95
         self.action_space=spaces.Discrete(3)
@@ -25,31 +24,22 @@ class TigerEnv(gym.Env):
         done = False
         if action==2: ##corresponds to listen action
             reward=-1
-            transition_probability=np.array([[1,0],[0,1]])
-            next_state= self.sample_from(transition_probability[self.current_state, :])
             observation= self.sample_from(OBSERV_PROB[next_state, :])
 
         elif action==0: ##open left
             rewards=[-100,10]
-            transition_probability=np.array([[1,0],[0,1]])
-            observation_probability=np.array([[1,0],[0,1]])
-            next_state= self.sample_from(transition_probability[self.current_state, :])
-            observation= self.sample_from(observation_probability[next_state, :])
-            reward=rewards[self.current_state]
+            observation = self.current_state
+            reward= rewards[self.current_state]
             done = True
 
         elif action==1: ##open right
             rewards=[10,-100]
-            transition_probability=np.array([[1,0],[0,1]])
-            observation_probability=np.array([[1,0],[0,1]])
-            next_state= self.sample_from(transition_probability[self.current_state, :])
-            observation= self.sample_from(observation_probability[next_state, :])
+            observation = self.current_state
             reward=rewards[self.current_state]
             done = True
         else:
             raise InvalidAction(f"the action {action} is not valid.")
 
-        self.current_state=next_state
         return observation, reward, done, False, {}
 
     def sample_from(self, probability_dist):
@@ -63,8 +53,7 @@ class TigerEnv(gym.Env):
         options: Optional[dict] = None
     ):
         super().reset(seed=seed)
-        self.start_state= self.sample_from(self.start_state_prob)
-        self.current_state=copy.deepcopy(self.start_state)
+        self.current_state=self.sample_from(self.start_state_prob)
 
         observation= self.sample_from(OBSERV_PROB[self.current_state, :])
         if not return_info:
