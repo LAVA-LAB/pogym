@@ -1,13 +1,13 @@
-import numpy as np
 from abc import ABC
 from typing import Optional
+
 import gym
+import numpy as np
 from gym import spaces
 from gym.error import InvalidAction
 from gym.utils import seeding
 
 from pogym.utils import sample_from
-
 
 OBS_PROB = np.array([[0.8, 0.2], [0.3, 0.7]])
 
