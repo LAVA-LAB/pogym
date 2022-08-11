@@ -103,7 +103,7 @@ class CheeseMazeEnv(gym.Env):
             reward = 1.
             done = True
         else:
-            reward = -0.01
+            reward = 0.
             done = False
 
         self.current_state = next_state
