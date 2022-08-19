@@ -1,3 +1,4 @@
+from gym import Env
 
 
 def get_trajectory(env: Env):
