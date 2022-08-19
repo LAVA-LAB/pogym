@@ -24,7 +24,7 @@ class TestTiger(unittest.TestCase):
         else:
             self.assertEqual(r, 10)
 
-    def test_seeding(self):
+    def test_determinism(self):
         env = pogym.make("Tiger-v0", new_step_api=True)
         self.assertListEqual(get_trajectory(env), get_trajectory(env))
 
