@@ -1,3 +1,3 @@
-from pogym.envs.pomdp.cheesemaze import CheeseMazeEnv
-from pogym.envs.pomdp.tiger import TigerEnv
-from pogym.envs.pomdp.voicemail import VoicemailEnv
+from .cheesemaze import CheeseMazeEnv
+from .tiger import TigerEnv
+from .voicemail import VoicemailEnv
