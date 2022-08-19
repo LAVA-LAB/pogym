@@ -1,6 +1,6 @@
 import unittest
 import pogym
-from pogym.tests.utils import get_trajectory
+from pogym.tests.utils import get_trajectory, testing_env_ids
 
 
 class TestTiger(unittest.TestCase):
@@ -25,9 +25,13 @@ class TestTiger(unittest.TestCase):
         else:
             self.assertEqual(r, 10)
 
+    def check_determinism(self, env_id):
+        env = pogym.make(env_id, new_step_api=True)
+        self.assertListEqual(get_trajectory(env), get_trajectory(env), env_id)
+
     def test_determinism(self):
-        env = pogym.make("Tiger-v0", new_step_api=True)
-        self.assertListEqual(get_trajectory(env), get_trajectory(env))
+        for env_id in testing_env_ids:
+            self.check_determinism(env_id)
 
     def test_listen_dont_terminate(self):
         env = pogym.make("Tiger-v0", new_step_api=True)
