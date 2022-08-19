@@ -1,4 +1,3 @@
-from gym.envs.registration import registry
 
 
 def get_trajectory(env):
@@ -10,4 +9,3 @@ def get_trajectory(env):
     return observations
 
 
-testing_env_ids = [env for env, spec in registry.items() if spec.entry_point.startswith("pogym")]
