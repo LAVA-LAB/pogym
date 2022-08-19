@@ -5,6 +5,8 @@ from gym import Env
 from gym import spaces
 from gym.error import InvalidAction
 
+from pogym.utils import sample_from
+
 
 OBSERV_PROB = np.array([[0.85, 0.15], [0.15, 0.85]])
 
@@ -22,7 +24,7 @@ class TigerEnv(Env):
         done = False
         if action == 2:  ##corresponds to listen action
             reward = -1
-            observation = self.sample_from(OBSERV_PROB[self.current_state, :])
+            observation = sample_from(OBSERV_PROB[self.current_state, :], self.np_random)
 
         elif action == 0:  ##open left
             rewards = [-100, 10]
@@ -40,8 +42,6 @@ class TigerEnv(Env):
 
         return observation, reward, done, False, {}
 
-    def sample_from(self, probability_dist):
-        return self.np_random.multinomial(1, probability_dist).argmax()
 
     def reset(
             self,
@@ -51,9 +51,9 @@ class TigerEnv(Env):
             options: Optional[dict] = None
     ):
         super().reset(seed=seed)
-        self.current_state = self.sample_from(self.start_state_prob)
+        self.current_state = sample_from(self.start_state_prob, self.np_random)
 
-        observation = self.sample_from(OBSERV_PROB[self.current_state, :])
+        observation = sample_from(OBSERV_PROB[self.current_state, :], self.np_random)
         if not return_info:
             return observation
         else:
