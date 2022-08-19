@@ -1,6 +1,6 @@
 import unittest
 import pogym
-from .utils import get_trajectory
+from pogym.tests.utils import get_trajectory
 
 
 class TestTiger(unittest.TestCase):
