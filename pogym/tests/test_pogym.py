@@ -1,5 +1,6 @@
 import unittest
 import pogym
+from .utils import get_trajectory
 
 
 class TestTiger(unittest.TestCase):
@@ -45,12 +46,3 @@ class TestTiger(unittest.TestCase):
         env.reset()
         _, _, terminated, _, _ = env.step(1)
         self.assertTrue(terminated)
-
-
-def get_trajectory(env):
-    observations = [env.reset(seed=0)]
-    truncated = False
-    while not truncated:
-        o, _, _, truncated, _ = env.step(2)
-        observations.append(o)
-    return observations
