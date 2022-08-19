@@ -1,8 +1,7 @@
-from abc import ABC
 from typing import Optional
 
-import gym
 import numpy as np
+from gym import Env
 from gym import spaces
 from gym.error import InvalidAction
 
@@ -23,7 +22,7 @@ OBS_PROB = np.array([
 ])
 
 
-class CheeseMazeEnv(gym.Env):
+class CheeseMazeEnv(Env):
     def __init__(self):
         self.start_state_prob = np.array(
             [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0]

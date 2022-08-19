@@ -1,7 +1,7 @@
 from typing import Optional
 
-import gym
 import numpy as np
+from gym import Env
 from gym import spaces
 from gym.error import InvalidAction
 from gym.utils import seeding
@@ -11,7 +11,7 @@ from pogym.utils import sample_from
 OBS_PROB = np.array([[0.8, 0.2], [0.3, 0.7]])
 
 
-class VoicemailEnv(gym.Env):
+class VoicemailEnv(Env):
     def __init__(self, isd=(0.65, 0.35)):
         self.start_state_probs = np.array(isd)  # assuming user wants the message to be saved
         self.start_state = None

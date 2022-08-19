@@ -1,7 +1,7 @@
 from typing import Optional
 
-import gym
 import numpy as np
+from gym import Env
 from gym import spaces
 from gym.error import InvalidAction
 
@@ -9,7 +9,7 @@ from gym.error import InvalidAction
 OBSERV_PROB = np.array([[0.85, 0.15], [0.15, 0.85]])
 
 
-class TigerEnv(gym.Env):
+class TigerEnv(Env):
     def __init__(self, isd=[0.5, 0.5]):
         self.start_state_prob = np.array(isd)
         self.current_state = None
