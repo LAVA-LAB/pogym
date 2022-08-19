@@ -4,7 +4,6 @@ import numpy as np
 from gym import Env
 from gym import spaces
 from gym.error import InvalidAction
-from gym.utils import seeding
 
 from pogym.utils import sample_from
 
@@ -20,11 +19,6 @@ class VoicemailEnv(Env):
         self.discount = 0.95
         self.action_space = spaces.Discrete(3)
         self.observation_space = spaces.Discrete(2)
-        self.seed()
-
-    def seed(self, seed=None):
-        self.np_random, seed = seeding.np_random(seed)
-        return [seed]
 
     def step(self, action):
         if action == 0:  # refers to asking the user
