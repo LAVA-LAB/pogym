@@ -26,16 +26,7 @@ class TestTiger(unittest.TestCase):
 
     def test_seeding(self):
         env = pogym.make("Tiger-v0", new_step_api=True)
-
-        def get_trajectory():
-            observations = [env.reset(seed=0)]
-            truncated = False
-            while not truncated:
-                o, _, _, truncated, _ = env.step(2)
-                observations.append(o)
-            return observations
-
-        self.assertListEqual(get_trajectory(), get_trajectory())
+        self.assertListEqual(get_trajectory(env), get_trajectory(env))
 
     def test_listen_dont_terminate(self):
         env = pogym.make("Tiger-v0", new_step_api=True)
@@ -54,3 +45,12 @@ class TestTiger(unittest.TestCase):
         env.reset()
         _, _, terminated, _, _ = env.step(1)
         self.assertTrue(terminated)
+
+
+def get_trajectory(env):
+    observations = [env.reset(seed=0)]
+    truncated = False
+    while not truncated:
+        o, _, _, truncated, _ = env.step(2)
+        observations.append(o)
+    return observations
