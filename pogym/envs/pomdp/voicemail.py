@@ -12,7 +12,7 @@ OBS_PROB = np.array([[0.8, 0.2], [0.3, 0.7]])
 
 class VoicemailEnv(Env):
     def __init__(self, isd=(0.65, 0.35)):
-        self.start_state_probs = np.array(isd)  # assuming user wants the message to be saved
+        self.start_state_prob = np.array(isd)  # assuming user wants the message to be saved
         self.start_state = None
         self.current_state = None
         self.name = "Voicemail"
@@ -50,7 +50,7 @@ class VoicemailEnv(Env):
             options: Optional[dict] = None
     ):
         super().reset(seed=seed)
-        self.start_state = sample_from(self.start_state_probs, self.np_random)
+        self.start_state = sample_from(self.start_state_prob, self.np_random)
         self.current_state = self.start_state
         observation = sample_from(OBS_PROB[self.current_state, :], self.np_random)
         if not return_info:
