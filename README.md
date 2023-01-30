@@ -6,11 +6,11 @@
 ### Installation
 
 ```bash
-pip install git+ssh://git@github.com/tdsimao/pogym.git
+pip install git+ssh://git@github.com/LAVA-LAB/pogym.git
 ```
 
 ```bash
-pip install git+https://github.com/tdsimao/pogym
+pip install git+https://github.com/LAVA-LAB/pogym
 ```
 
 ### API
@@ -55,7 +55,7 @@ step:9 observation: 0
 
 Install package in editable (develop) mode
 ```bash
-git clone https://github.com/tdsimao/pogym.git
+git clone https://github.com/LAVA-LAB/pogym.git
 cd pogym
 pip install -e .
 ```
