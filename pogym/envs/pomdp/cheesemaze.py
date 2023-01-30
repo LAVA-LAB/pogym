@@ -113,13 +113,9 @@ class CheeseMazeEnv(Env):
             self,
             *,
             seed: Optional[int] = None,
-            return_info: bool = False,
             options: Optional[dict] = None
     ):
         super().reset(seed=seed)
         self.current_state = sample_from(self.start_state_prob, self.np_random)
         observation = sample_from(OBS_PROB[self.current_state, :], self.np_random)
-        if not return_info:
-            return observation
-        else:
-            return observation, {}
+        return observation, {}
